@@ -40,7 +40,7 @@ Si nécessaire, vous pouvez vous référer aux transparents du second cours.
 
 ## Lecture d'une ligne
 
-On veut maintenant écrire une fonction `int lireligne(int fd, char *s, int size)` permettant de lire une ligne d'un 
+On veut maintenant écrire une fonction `int lireligne(int fd, char *s, int size)` pour lire une ligne d'un 
 fichier :
 
 - la fonction lit des caractères dans le fichier correspondant au descripteur `fd` jusqu'à lire un retour à la ligne 
@@ -80,7 +80,7 @@ dans le fichier. Si l'on trouve un retour à la ligne dans les octets lus, il fa
 après ce retour à la ligne pour ne pas perturber les lectures suivantes dans le fichier (qui reprendront donc au 
 début de la ligne suivante). On utilise pour cela la fonction `lseek`.
 
-1. Modifiez la fonction `lireligne` pour qu'elle lise les caractères du fichier par blocs de `size` caractères à 
+3. Modifiez la fonction `lireligne` pour qu'elle lise les caractères du fichier par blocs de `size` caractères à 
     la fois.
 	
 	**Indication :** La fonction doit donc utiliser `read` pour remplir le tableau `s`, puis parcourir le tableau 
@@ -88,7 +88,7 @@ début de la ligne suivante). On utilise pour cela la fonction `lseek`.
 	de lecture du fichier au bon emplacement. La fonction doit également renvoyer le nombre d'octets lus jusqu'au 
 	retour à la ligne.
 
-##Passage de paramètres
+## Passage de paramètres
 
 Jusqu'ici, tous les programmes que nous avons écrits avaient une fonction `main` ne prenant aucun argument : 
 `int main()`. Il est toutefois possible de lui passer deux arguments, un entier et un tableau de chaînes de 
@@ -104,14 +104,13 @@ $ ./prog -l toto
 alors `argc` vaut 3 et le tableau `argv` contient les chaînes de caractères « `prog` », « `-l` » et « `toto` » aux 
 indices 0, 1 et 2 respectivement.
 
-1. Modifiez les programmes des questions 2 et 3 pour qu'ils prennent en paramètres les noms des fichiers sur lesquels 
-    ils travaillent (le premier attend un nom de fichier, le second en attend deux). Faites en sorte que le programme 
-    s'interrompe en affichant un message d'erreur si le nombre d'arguments reçus ne correspond pas au nombre attendu.
+1. Modifiez les programmes `readfile.c` et `copy.c` pour qu'ils prennent en paramètres les noms des fichiers sur 
+    lesquels ils travaillent (le premier attend un nom de fichier, le second en attend deux). Faites en sorte que 
+    le programme s'interrompe en affichant un message d'erreur si le nombre d'arguments reçus ne correspond pas au 
+    nombre attendu.
 	
 	**Indication :** Pour interrompre l'exécution du programme, vous pouvez utiliser la commande « `exit(1);` » de la 
 	bibliothèque `<stdlib.h>`.
-
-<b id="fn_main">[1]</b> On peut également utiliser les déclarations `int main(int argc, char argv[][])` ou même `int main(int argc, char *argv[])` qui sont équivalentes. [↩](#fn_main)
 
 ## Gestion des erreurs (`errno` et `perror`)
 
@@ -126,7 +125,7 @@ Lorsqu'une erreur se produit, la fonction qui a généré l'erreur donne une val
 renvoie un code d'erreur (dans le cas des appels systèmes c'est -1). La documentation des fonctions utilisant 
 ce mécanisme donne en général la liste des erreurs pouvant se produire.
 
-1. Regardez la documentation de l'appel système `open` et cherchez la section donnant la liste des erreurs.
+2. Regardez la documentation de l'appel système `open` et cherchez la section donnant la liste des erreurs.
 
 Chaque erreur correspond à un nom, qui est en réalité un mot clé associé à un entier (les valeurs associées à chaque 
 mot-clé sont définies dans les bibliothèques mais il n'est pas nécessaire de les connaître puisqu'on doit justement 
@@ -145,7 +144,7 @@ renvoie -1.
 Pour connaître l'erreur qui s'est produite, on peut alors tester l'égalité de `errno` et de chacune des erreurs 
 possibles : « `if (errno == ENOENT)` ».
 
-1. Modifiez le programme de la question 2 pour qu'il affiche un message d'erreur spécifique lorsque le fichier à 
+3. Modifiez le programme de la question 2 pour qu'il affiche un message d'erreur spécifique lorsque le fichier à 
     ouvrir n'existe pas.
 	
 	**Indication :** Il faut tester si le résultat de `open` est -1, et si c'est le cas, regarder si `errno` est égal 
@@ -164,12 +163,12 @@ toto.txt: No such file or directory
 ```
 si le fichier `toto.txt` n'existe pas.
 
-1. Modifiez votre programme pour qu'en cas d'échec d'ouverture du fichier il affiche une description de l'erreur 
+4. Modifiez votre programme pour qu'en cas d'échec d'ouverture du fichier il affiche une description de l'erreur 
 produite et s'interrompe.
 
 1. Modifiez tous les programmes écrits dans ce TD pour gérer les éventuelles erreurs après les appels systèmes.
 	
-De manière général, il est très important de toujours vérifier qu'il n'y a pas eu d'erreur après un appel à `open`. 
+De manière générale, il est très important de toujours vérifier qu'il n'y a pas eu d'erreur après un appel à `open`. 
 Pour les autres il est toujours conseillé de surveiller les erreurs éventuelles mais elles se produisent moins 
 fréquemment.
 
@@ -221,7 +220,7 @@ fichier ou de problème à la lecture.
 On veut maintenant réécrire cette fonction pour qu'elle fasse moins d'appels à `read` si on l'utilise plusieurs fois 
 de suite.
 
-1. Définissez une constante `BUF_SIZE` (valant par exemple 5), puis écrivez la fonction `mygetc2` ayant la même 
+2. Définissez une constante `BUF_SIZE` (valant par exemple 5), puis écrivez la fonction `mygetc2` ayant la même 
     spécification que `mygetc` de telle sorte qu'elle n'appelle la fonction `read` qu'une fois si on appelle `BUF_SIZE` 
     fois de suite la fonction `mygetc2`.
 
@@ -240,3 +239,7 @@ de suite.
 	- Chronométrez le temps d'exécution, puis recommencez en remplaçant `mygetc` par `mygetc2`. Faites varier la 
 	valeur de la constante `BUF_SIZE` en utilisant les valeurs 5, 10 puis 1024. Que constatez vous ?
 	
+---
+Notes :
+
+<b id="fn_main">1.</b> On peut également utiliser les déclarations `int main(int argc, char argv[][])` ou même `int main(int argc, char *argv[])` qui sont équivalentes. [↩](#fn_main)
