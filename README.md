@@ -2,7 +2,7 @@
 
 Cliquez sur le lien ci-dessous pour faire votre fork privé du TP (attention, pas de fork à la main !) :
 
-https://classroom.github.com/a/Ukum_LSI
+https://classroom.github.com/a/9XlN0eZB
 
 À la différence d'autres cours (POO par exemple) il n'est pas vraiment nécessaire d'utiliser un IDE ici. Vous pourrez
 donc faire les commandes `git` (`clone`, `commit`, `push`, `pull`, etc.) directement dans un terminal et utiliser un
