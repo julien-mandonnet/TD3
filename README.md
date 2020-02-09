@@ -4,6 +4,13 @@ Cliquez sur le lien ci-dessous pour faire votre fork privé du TP (attention, pa
 
 https://classroom.github.com/a/Ukum_LSI
 
+À la différence d'autres cours (POO par exemple) il n'est pas vraiment nécessaire d'utiliser un IDE ici. Vous pourrez
+donc faire les commandes `git` (`clone`, `commit`, `push`, `pull`, etc.) directement dans un terminal et utiliser un
+éditeur de texte (`sublime text`, `geany` ou un autre de votre choix) pour éditer les fichiers.
+ 
+Plusieurs questions vous demandent de modifier des fonctions déjà écrites précédemment. Pensez donc à bien faire des
+`commit` après chaque question pour garder une trace de vos réponses.
+ 
 Dans ce TD, nous allons utiliser les fonctions `open`, `close`, `read`, `write`, et `lseek` pour manipuler les fichiers 
 directement en utilisant les appels système. Il ne faut donc pas utiliser les fonctions plus haut niveau telles que 
 `fopen`, `fgetc`, `fputc`, `printf`, etc.
@@ -19,7 +26,8 @@ Si nécessaire, vous pouvez vous référer aux transparents du second cours.
 	**Remarque :** Pour indiquer que l'on veut la documentation des appels système, il faut utiliser l'option
 	`2` dans `man` (par exemple « `man 2 read` »).
 
-1. Écrivez un programme `readfile.c` qui ouvre le fichier `message.txt` du répertoire courant et affiche son contenu à l'écran.
+1. Écrivez le programme `readfile.c` qui ouvre le fichier `message.txt` du répertoire courant et affiche son contenu 
+à l'écran.
 	
 	**Indication :** Pour détecter que l'on arrive à la fin du fichier il faut regarder le résultat renvoyé par 
 	`read`, qui correspond au nombre de caractères lus.
@@ -28,7 +36,7 @@ Si nécessaire, vous pouvez vous référer aux transparents du second cours.
 	standard et la sortie d'erreur. Vous pouvez donc par exemple utiliser la fonction `write` en lui passant le 
 	descripteur 1 pour écrire du texte à l'écran.
 
-1. Écrivez un programme `copy.c` qui copie le contenu du fichier `message.txt` dans un fichier `copie.txt`.
+1. Écrivez le programme `copy.c` qui copie le contenu du fichier `message.txt` dans un fichier `copie.txt`.
 	
 	**Indication :** Il faut ouvrir le premier fichier en lecture et le second en écriture (en le créant si nécessaire)
 	et copier le contenu du premier dans le second.
@@ -49,8 +57,8 @@ fichier :
 caractères) ;
 - le résultat renvoyé par la fonction est le nombre de caractères effectivement lus dans le fichier.
 
-1. En utilisant les appels système, écrivez la fonction `lireligne` en lui faisant lire les caractères un par un 
-    afin de pouvoir s'arrêter facilement si elle rencontre un retour à la ligne.
+1. En utilisant les appels système, écrivez la fonction `lireligne` dans le fichier `lireligne.c` en lui faisant lire
+    les caractères un par un afin de pouvoir s'arrêter facilement si elle rencontre un retour à la ligne.
 	
 	**Indication :** Pour lire les caractères un par un, vous pouvez déclarer un tableau d'un caractère `char c[1]`
 	ou bien déclarer un caractère `char c` et passer l'adresse du caractère `&c` à la fonction `read`.
@@ -109,8 +117,8 @@ indices 0, 1 et 2 respectivement.
     le programme s'interrompe en affichant un message d'erreur si le nombre d'arguments reçus ne correspond pas au 
     nombre attendu.
 	
-	**Indication :** Pour interrompre l'exécution du programme, vous pouvez utiliser la commande « `exit(1);` » de la 
-	bibliothèque `<stdlib.h>`.
+	**Indication :** Pour interrompre l'exécution d'un programme, vous pouvez utiliser la commande « `exit(1);` » de 
+	la bibliothèque `<stdlib.h>`.
 
 ## Gestion des erreurs (`errno` et `perror`)
 
@@ -144,7 +152,7 @@ renvoie -1.
 Pour connaître l'erreur qui s'est produite, on peut alors tester l'égalité de `errno` et de chacune des erreurs 
 possibles : « `if (errno == ENOENT)` ».
 
-3. Modifiez le programme de la question 2 pour qu'il affiche un message d'erreur spécifique lorsque le fichier à 
+3. Modifiez le programme `readfile.c` pour qu'il affiche un message d'erreur spécifique lorsque le fichier à 
     ouvrir n'existe pas.
 	
 	**Indication :** Il faut tester si le résultat de `open` est -1, et si c'est le cas, regarder si `errno` est égal 
@@ -163,8 +171,8 @@ toto.txt: No such file or directory
 ```
 si le fichier `toto.txt` n'existe pas.
 
-4. Modifiez votre programme pour qu'en cas d'échec d'ouverture du fichier il affiche une description de l'erreur 
-produite et s'interrompe.
+4. Modifiez à nouveau le programme `readfile.c` pour qu'en cas d'échec d'ouverture du fichier il affiche une 
+description de l'erreur produite et s'interrompe.
 
 1. Modifiez tous les programmes écrits dans ce TD pour gérer les éventuelles erreurs après les appels systèmes.
 	
@@ -199,7 +207,7 @@ if (stat("blop.txt", &buf) == 0) {
 }
 ```
 
-1. Écrivez un programme `bigfich.c` qui prend en argument une liste de noms de fichiers et affiche le nom du plus 
+1. Écrivez le programme `bigfich.c` qui prend en argument une liste de noms de fichiers et affiche le nom du plus 
     grand d'entre eux.
 	
 	Le nombre de noms de fichiers passé en argument doit être au moins 1 mais peut être arbitrairement grand. 
@@ -215,7 +223,8 @@ La spécification de `mygetc` est la suivante : `int mygetc(int fd)` retourne le
 par le descripteur `fd` sous forme d'entier (c'est à dire retourne son code ASCII), ou retourne -1 en cas de fin du 
 fichier ou de problème à la lecture.
 
-1. Écrivez la fonction `mygetc` de manière naïve en utilisant l'instruction `read` pour lire un caractère.
+1. Écrivez la fonction `mygetc` du fichier `mygetc.c` de manière naïve en utilisant l'instruction `read` pour lire un
+    caractère.
 
 On veut maintenant réécrire cette fonction pour qu'elle fasse moins d'appels à `read` si on l'utilise plusieurs fois 
 de suite.
