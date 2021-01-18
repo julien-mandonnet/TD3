@@ -1,15 +1,4 @@
 # TD n°3 - Entrées / Sorties
-
-Cliquez sur le lien ci-dessous pour faire votre fork privé du TP (attention, pas de fork à la main !) :
-
-https://classroom.github.com/a/9XlN0eZB
-
-À la différence d'autres cours (POO par exemple) il n'est pas vraiment nécessaire d'utiliser un IDE ici. Vous pourrez
-donc faire les commandes `git` (`clone`, `commit`, `push`, `pull`, etc.) directement dans un terminal et utiliser un
-éditeur de texte (`sublime text`, `geany` ou un autre de votre choix) pour éditer les fichiers.
- 
-Plusieurs questions vous demandent de modifier des fonctions déjà écrites précédemment. Pensez donc à bien faire des
-`commit` après chaque question pour garder une trace de vos réponses.
  
 Dans ce TD, nous allons utiliser les fonctions `open`, `close`, `read`, `write`, et `lseek` pour manipuler les fichiers 
 directement en utilisant les appels système. Il ne faut donc pas utiliser les fonctions plus haut niveau telles que 
